@@ -1,12 +1,8 @@
-package com.mapswithme.maps.widget.placepage;
+package com.mapswithme.maps.bookmarks;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,50 +12,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
+import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Icon;
-import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
 
-public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.OnClickListener, Listener
-{
-  public static final String EXTRA_CATEGORY_ID = "CategoryId";
-  public static final String EXTRA_BOOKMARK_ID = "BookmarkId";
+import static com.mapswithme.maps.bookmarks.EditBookmarkActivity.EXTRA_BOOKMARK_ID;
+import static com.mapswithme.maps.bookmarks.EditBookmarkActivity.EXTRA_CATEGORY_ID;
 
+public class EditBookmarkFragment extends BaseMwmFragment implements View.OnClickListener, Listener
+{
   private EditText mEtDescription;
   private EditText mEtName;
   private TextView mTvBookmarkGroup;
   private ImageView mIvColor;
   private Bookmark mBookmark;
 
-  public static void editBookmark(int categoryId, int bookmarkId, @NonNull Context context, @NonNull FragmentManager manager)
-  {
-    final Bundle args = new Bundle();
-    args.putInt(EXTRA_CATEGORY_ID, categoryId);
-    args.putInt(EXTRA_BOOKMARK_ID, bookmarkId);
-    String name = EditBookmarkFragment.class.getName();
-    final EditBookmarkFragment fragment = (EditBookmarkFragment) Fragment.instantiate(context, name, args);
-    fragment.setArguments(args);
-    fragment.show(manager, name);
-  }
-
   public EditBookmarkFragment() {}
-
-  @Override
-  protected int getCustomTheme()
-  {
-    return getFullscreenTheme();
-  }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_edit_bookmark, container, false);
+    return inflater.inflate(R.layout.edit_bookmark_common, container, false);
   }
 
   @Override
@@ -79,37 +56,11 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     mIvColor = (ImageView) view.findViewById(R.id.iv__bookmark_color);
     mIvColor.setOnClickListener(this);
     refreshBookmark();
-    initToolbar(view);
   }
 
-  private void initToolbar(View view)
-  {
-    Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-    final TextView textView = (TextView) toolbar.findViewById(R.id.tv__save);
-    textView.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        saveBookmark();
-      }
-    });
-    UiUtils.showHomeUpButton(toolbar);
-    toolbar.setTitle(R.string.description);
-    toolbar.setNavigationOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        dismiss();
-      }
-    });
-  }
-
-  private void saveBookmark()
+  public void saveBookmark()
   {
     mBookmark.setParams(mEtName.getText().toString(), null, mEtDescription.getText().toString());
-    dismiss();
   }
 
   @Override

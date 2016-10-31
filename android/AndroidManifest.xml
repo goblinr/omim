@@ -241,6 +241,18 @@
     </activity>
 
     <activity
+      android:name="com.mapswithme.maps.bookmarks.EditBookmarkActivity"
+      android:configChanges="orientation|screenLayout|screenSize"
+      android:label="@string/bookmarks"
+      android:parentActivityName="com.mapswithme.maps.MwmActivity"
+      android:windowSoftInputMode="adjustResize">
+      <!-- The meta-data element is needed for versions lower than 4.1 -->
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.mapswithme.maps.MwmActivity"/>
+    </activity>
+
+    <activity
         android:name="com.mapswithme.maps.editor.EditorActivity"
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/edit_place"

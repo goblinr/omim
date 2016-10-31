@@ -41,6 +41,8 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.EditBookmarkActivity;
+import com.mapswithme.maps.bookmarks.EditBookmarkFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -1224,8 +1226,8 @@ public class PlacePageView extends RelativeLayout
         break;
       case R.id.tv__bookmark_edit:
         Bookmark bookmark = (Bookmark) mMapObject;
-        EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
-                                          getActivity(), getActivity().getSupportFragmentManager());
+        EditBookmarkActivity.editBookmark(getActivity(), bookmark.getCategoryId(),
+                                          bookmark.getBookmarkId());
         break;
       case R.id.tv__place_hotel_more:
         UiUtils.hide(mHotelMoreDescription);

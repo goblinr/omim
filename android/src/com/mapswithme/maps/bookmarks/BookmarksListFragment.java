@@ -21,7 +21,6 @@ import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Track;
-import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.sharing.ShareOption;
@@ -174,7 +173,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
       break;
 
     case R.id.edit:
-      EditBookmarkFragment.editBookmark(mCategory.getId(), item.getBookmarkId(), getActivity(), getChildFragmentManager());
+      EditBookmarkActivity.editBookmark(getActivity(), mCategory.getId(), item.getBookmarkId());
       break;
 
     case R.id.delete:

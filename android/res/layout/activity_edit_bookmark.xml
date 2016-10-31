@@ -24,10 +24,9 @@
   </android.support.v7.widget.Toolbar>
 
   <FrameLayout
+    android:id="@+id/fragment_container"
     style="@style/MwmWidget.FrameLayout.Elevation"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/toolbar">
-    <include layout="@layout/edit_bookmark_common"/>
-  </FrameLayout>
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"/>
 </RelativeLayout>

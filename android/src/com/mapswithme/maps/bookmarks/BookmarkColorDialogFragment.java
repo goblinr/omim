@@ -1,4 +1,4 @@
-package com.mapswithme.maps.widget.placepage;
+package com.mapswithme.maps.bookmarks;
 
 import android.app.Dialog;
 import android.os.Bundle;
