@@ -102,6 +102,7 @@ public abstract class BasePlacePageAnimationController implements ObservableScro
   @Override
   public void onScrollEnd()
   {
+    String s = "";
   }
 
   protected void initialVisibility()

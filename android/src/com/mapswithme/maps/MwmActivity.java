@@ -98,6 +98,7 @@ import com.mapswithme.util.permissions.PermissionsResult;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 import com.mapswithme.util.statistics.AlohaHelper;
+import com.mapswithme.util.statistics.PlacePageTracker;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.Serializable;
@@ -190,6 +191,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private boolean mRestoreRoutingPlanFragmentNeeded;
   @Nullable
   private Bundle mSavedForTabletState;
+  @Nullable
+  private PlacePageTracker mPlacePageTracker;
 
   @NonNull
   private final OnClickListener mOnMyPositionClickListener = new OnClickListener()
@@ -525,6 +528,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     {
       mPlacePage.setOnVisibilityChangedListener(this);
       mPlacePage.setOnAnimationListener(this);
+      mPlacePageTracker = new PlacePageTracker(mPlacePage);
     }
 
     if (!mIsFragmentContainer)
@@ -1400,6 +1404,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       Framework.nativeDeactivatePopup();
       if (mPlacePage != null)
         mPlacePage.setMapObject(null, false, null);
+      if (mPlacePageTracker != null)
+        mPlacePageTracker.onHide();
     }
   }
 
@@ -1420,6 +1426,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     if (mNavAnimationController != null)
       mNavAnimationController.onPlacePageMoved(translationY);
+    if (mPlacePageTracker != null)
+      mPlacePageTracker.onMove();
   }
 
   @Override

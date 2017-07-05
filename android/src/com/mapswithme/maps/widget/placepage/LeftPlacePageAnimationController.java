@@ -105,6 +105,13 @@ class LeftPlacePageAnimationController extends BasePlacePageAnimationController
     }
   }
 
+  @Override
+  public void onScroll(int left, int top)
+  {
+    super.onScroll(left, top);
+    notifyProgress(0, mPlacePage.getTranslationY());
+  }
+
   private void startTracking(boolean collapsed)
   {
     MwmActivity.LeftAnimationTrackListener tracker = mPlacePage.getLeftAnimationTrackListener();
