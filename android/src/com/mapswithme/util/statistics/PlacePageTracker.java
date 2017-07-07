@@ -3,7 +3,6 @@ package com.mapswithme.util.statistics;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 
 import com.mapswithme.maps.R;
@@ -18,6 +17,8 @@ public class PlacePageTracker
   private final PlacePageView mPlacePageView;
   @NonNull
   private final View mTaxi;
+
+  private boolean mTracked;
 
   public PlacePageTracker(@NonNull PlacePageView placePageView)
   {
@@ -34,14 +35,16 @@ public class PlacePageTracker
 
   public void onHide()
   {
-    Log.i("XXX", "onHide()");
+    mTracked = false;
   }
 
   private void trackTaxiVisibility()
   {
-    Log.i("XXX", "isViewVIsible taxi = " + isViewOnScreen(mTaxi));
-
-    //TODO: send statistics
+    if (!mTracked && isViewOnScreen(mTaxi))
+    {
+      Statistics.INSTANCE.trackTaxiShow();
+      mTracked = true;
+    }
   }
 
   private boolean isViewOnScreen(@NonNull View view) {
@@ -49,11 +52,11 @@ public class PlacePageTracker
     if (mPlacePageView.getVisibility() == INVISIBLE)
       return false;
 
-    Rect rect = new Rect();
-    view.getGlobalVisibleRect(rect);
-
-    Log.i("XXX", "bottom = " + rect.bottom + " pp bottom = " + mPlacePageView.getBottom() + " padding = " + mBottomPadding);
-    return rect.bottom <= mPlacePageView.getBottom() - mBottomPadding;
+    Rect localRect = new Rect();
+    Rect globalRect = new Rect();
+    view.getLocalVisibleRect(localRect);
+    view.getGlobalVisibleRect(globalRect);
+    return localRect.bottom >= view.getHeight() && localRect.top == 0
+           && globalRect.bottom <= mPlacePageView.getBottom() - mBottomPadding;
   }
-
 }
