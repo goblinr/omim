@@ -52,6 +52,7 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_ERRO
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_OWNERSHIP_BUTTON_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_BOOK;
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BANNER_STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.BATTERY;
@@ -547,6 +548,11 @@ public enum Statistics
     params.add(Statistics.EventParam.PROVIDER,
                type == TaxiManager.PROVIDER_YANDEX ? "Yandex" : "Uber");
     trackEvent(eventName, params);
+  }
+
+  public void trackTaxiShow()
+  {
+    trackEvent(ROUTING_TAXI_SHOW_IN_PP);
   }
 
   public void trackTaxiError(@NonNull TaxiInfoError error)
